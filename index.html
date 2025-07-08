@@ -1,0 +1,857 @@
+`html
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>کتابخانه - ثبت نام دوره‌های کتاب خوانی</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #27ae60;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e7f0 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 0;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, var(--primary), var(--dark));
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .logo i {
+            color: var(--accent);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover, nav a.active {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.9)), url('https://source.unsplash.com/random/1200x600/?books') center/cover no-repeat;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+            margin-bottom: 50px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 10px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+        }
+        
+        .btn:hover {
+background: #c0392b;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.6);
+        }
+        
+        .btn-secondary {
+            background: var(--secondary);
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+        }
+        
+        .btn-secondary:hover {
+            background: #2980b9;
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.6);
+        }
+        
+        /* Courses Section */
+        .section-title {
+            text-align: center;
+            margin: 40px 0 50px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .courses {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .course-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .course-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .course-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .course-card:hover .course-img img {
+            transform: scale(1.1);
+        }
+        
+        .course-content {
+            padding: 25px;
+        }
+        
+        .course-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+        
+        .course-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .course-content p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin: 15px 0;
+        }
+        
+        /* Registration Form */
+        .registration {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            margin-bottom: 60px;
+        }
+        
+        .form-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary);
+            font-size: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #444;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: var(--secondary);
+box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            font-size: 1.1rem;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-size: 5rem;
+            color: rgba(52, 152, 219, 0.1);
+            font-family: Georgia, serif;
+        }
+        
+        .testimonial-content {
+            margin-bottom: 20px;
+            color: #555;
+            font-style: italic;
+            line-height: 1.8;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .author-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--secondary);
+        }
+        
+        .author-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent);
+        }
+        
+        .footer-column p {
+            margin-bottom: 20px;
+            color: #ecf0f1;
+            opacity: 0.8;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {margin-bottom: 15px;
+        }
+        
+        .footer-links a {
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-right: 5px;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .contact-item i {
+            margin-top: 5px;
+            color: var(--accent);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-book-open"></i>
+                <span>کتابخانه</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">صفحه اصلی</a></li>
+                    <li><a href="#">دوره‌ها</a></li>
+                    <li><a href="#">معرفی اساتید</a></li>
+                    <li><a href="#">وبلاگ</a></li>
+                    <li><a href="#">تماس با ما</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>دوره‌های تخصصی آموزش کتاب خوانی</h1>
+            <p>با بهترین اساتید و متدهای آموزشی روز دنیا، عشق به مطالعه را در خود پرورش دهید</p>
+            <div>
+                <a href="#registration" class="btn">ثبت نام دوره‌ها</a>
+                <a href="#courses" class="btn btn-secondary">مشاهده دوره‌ها</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Courses Section -->
+        <section id="courses">
+            <div class="section-title">
+                <h2>دوره‌های آموزشی ما</h2>
+            </div>
+            <div class="courses">
+                <div class="course-card">
+                    <div class="course-img">
+                        <img src="https://source.unsplash.com/random/600x400/?reading" alt="مطالعه سریع">
+                    </div>
+                    <div class="course-content">
+                        <h3>مطالعه سریع و تندخوانی</h3>
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 20 ساعت</span>
+                            <span><i class="fas fa-user-graduate"></i> سطح: مبتدی تا پیشرفته</span>
+                        </div>
+                        <p>در این دوره تکنیک‌های افزایش سرعت مطالعه و درک مطلب را فرا خواهید گرفت</p>
+                        <div class="price">490,000 تومان</div>
+                        <a href="#registration" class="btn btn-secondary">ثبت نام دوره</a>
+                    </div>
+                </div>
+<div class="course-card">
+                    <div class="course-img">
+                        <img src="https://source.unsplash.com/random/600x400/?bookshelf" alt="روانشناسی مطالعه">
+                    </div>
+                    <div class="course-content">
+                        <h3>روانشناسی مطالعه و یادگیری</h3>
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 24 ساعت</span>
+                            <span><i class="fas fa-user-graduate"></i> سطح: متوسط</span>
+                        </div>
+                        <p>روش‌های علمی برای بهبود تمرکز، حافظه و یادگیری عمیق</p>
+                        <div class="price">590,000 تومان</div>
+                        <a href="#registration" class="btn btn-secondary">ثبت نام دوره</a>
+                    </div>
+                </div>
+                
+                <div class="course-card">
+                    <div class="course-img">
+                        <img src="https://source.unsplash.com/random/600x400/?library" alt="نقد ادبی">
+                    </div>
+                    <div class="course-content">
+                        <h3>نقد و تحلیل ادبی</h3>
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 32 ساعت</span>
+                            <span><i class="fas fa-user-graduate"></i> سطح: پیشرفته</span>
+                        </div>
+                        <p>آموزش روش‌های تحلیل و نقد آثار ادبی و شناخت مکاتب ادبی</p>
+                        <div class="price">690,000 تومان</div>
+                        <a href="#registration" class="btn btn-secondary">ثبت نام دوره</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Registration Form -->
+        <section id="registration">
+            <div class="section-title">
+                <h2>فرم ثبت نام دوره‌ها</h2>
+            </div>
+            <div class="registration">
+                <h3 class="form-title">اطلاعات خود را وارد کنید</h3>
+                <form id="registration-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fullname">نام و نام خانوادگی *</label>
+                            <input type="text" id="fullname" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">شماره تماس *</label>
+                            <input type="tel" id="phone" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">آدرس ایمیل *</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="age">سن</label>
+                            <input type="number" id="age" class="form-control" min="12" max="80">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="course">انتخاب دوره *</label>
+                        <select id="course" class="form-control" required>
+                            <option value="">-- لطفا دوره مورد نظر را انتخاب کنید --</option>
+                            <option value="fast">مطالعه سریع و تندخوانی</option>
+                            <option value="psychology">روانشناسی مطالعه و یادگیری</option>
+                            <option value="literature">نقد و تحلیل ادبی</option>
+                        </select>
+</div>
+                    
+                    <div class="form-group">
+                        <label for="education">میزان تحصیلات</label>
+                        <select id="education" class="form-control">
+                            <option value="">-- لطفا انتخاب کنید --</option>
+                            <option value="diploma">دیپلم</option>
+                            <option value="bachelor">کارشناسی</option>
+                            <option value="master">کارشناسی ارشد</option>
+                            <option value="phd">دکترا</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="experience">تجربه مطالعه (تعداد کتاب در ماه)</label>
+                        <select id="experience" class="form-control">
+                            <option value="">-- لطفا انتخاب کنید --</option>
+                            <option value="1">کمتر از 1 کتاب</option>
+                            <option value="1-2">1 تا 2 کتاب</option>
+                            <option value="3-5">3 تا 5 کتاب</option>
+                            <option value="5+">بیش از 5 کتاب</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="interests">علاقه‌مندی‌های مطالعاتی</label>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 10px;">
+                            <label style="display: flex; align-items: center; gap: 8px;">
+                                <input type="checkbox" name="interests" value="novel"> رمان
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px;">
+                                <input type="checkbox" name="interests" value="history"> تاریخی
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px;">
+                                <input type="checkbox" name="interests" value="science"> علمی
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px;">
+                                <input type="checkbox" name="interests" value="psychology"> روانشناسی
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px;">
+                                <input type="checkbox" name="interests" value="philosophy"> فلسفه
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px;">
+                                <input type="checkbox" name="interests" value="poetry"> شعر
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">توضیحات و سوالات</label>
+                        <textarea id="message" class="form-control"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label style="display: flex; align-items: flex-start; gap: 10px; margin-top: 20px;">
+                            <input type="checkbox" required>
+                            <span>با <a href="#" style="color: var(--secondary);">قوانین و شرایط</a> استفاده از سایت موافقم</span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn submit-btn">تکمیل ثبت نام</button>
+                </form>
+            </div>
+        </section>
+<!-- Testimonials -->
+        <section>
+            <div class="section-title">
+                <h2>نظرات شرکت کنندگان</h2>
+            </div>
+            <div class="testimonials">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        دوره تندخوانی واقعاً تحول‌آفرین بود. سرعت مطالعه‌ام سه برابر شده و درک مطلبم هم بهتر شده. این دوره رو به همه توصیه می‌کنم.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-img">
+                            <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="مریم محمدی">
+                        </div>
+                        <div class="author-info">
+                            <h4>مریم محمدی</h4>
+                            <p>شرکت کننده دوره تندخوانی</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        تدریس استاد بی‌نظیر بود. با روش‌های علمی که آموزش دادند، الان می‌تونم ساعتها مطالعه کنم بدون اینکه خسته بشم. ممنون از کتابخانه.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-img">
+                            <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="علی رضایی">
+                        </div>
+                        <div class="author-info">
+                            <h4>علی رضایی</h4>
+                            <p>شرکت کننده دوره روانشناسی مطالعه</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        تحلیل ادبی همیشه برام سخت بود ولی با این دوره دیدگاهم کاملاً تغییر کرد. الان می‌تونم کتاب‌ها رو عمیق‌تر بخونم و لذت بیشتری می‌برم.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-img">
+                            <img src="https://randomuser.me/api/portraits/women/67.jpg" alt="فاطمه حسینی">
+                        </div>
+                        <div class="author-info">
+                            <h4>فاطمه حسینی</h4>
+                            <p>شرکت کننده دوره نقد ادبی</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>درباره کتابخانه</h3>
+                    <p>کتابخانه با هدف ترویج فرهنگ مطالعه و آموزش روش‌های علمی کتاب‌خوانی تأسیس شده است. ما معتقدیم هر فردی با آموزش صحیح می‌تواند به یک کتابخوان حرفه‌ای تبدیل شود.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>لینک‌های مفید</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-left"></i> صفحه اصلی</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-left"></i> دوره‌های آموزشی</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-left"></i> وبلاگ آموزشی</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-left"></i> سوالات متداول</a></li>
+<li><a href="#"><i class="fas fa-chevron-left"></i> قوانین و مقررات</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>تماس با ما</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>تهران، خیابان انقلاب، پلاک ۱۲۳</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>۰۲۱-۱۲۳۴۵۶۷۸</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>info@ketabkhaneh.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <span>شنبه تا پنجشنبه: ۸ صبح تا ۵ بعدازظهر</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>تمامی حقوق مادی و معنوی این سایت متعلق به کتابخانه می‌باشد © ۱۴۰۲</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Form submission handling
+        document.getElementById('registration-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const fullname = document.getElementById('fullname').value;
+            const course = document.getElementById('course').options[document.getElementById('course').selectedIndex].text;
+            
+            // Show success message
+            alert(ثبت نام شما با موفقیت انجام شد!\n\n${fullname} عزیز، در دوره "${course}" ثبت نام شدید.\n\nجزئیات بیشتر به ایمیل شما ارسال خواهد شد.);
+            
+            // Reset form
+            this.reset();
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.course-card, .testimonial-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
+`
